@@ -309,7 +309,7 @@ void loop()
     I3 = action[2];   
     I4 = action[3];
 
-    
+    //mapping from currents to (-1 -》 1s)
 
   
     set1(I1); // North (-1 < I1 < 1)
