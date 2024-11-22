@@ -608,7 +608,7 @@ class MainWindow(QtWidgets.QMainWindow):
     
 
     def get_slider_vals(self):
-        #alpha = self.ui.alphaspinBox.value()
+  
         
         robotlower = self.ui.robotmasklowerbox.value() 
         robotupper = self.ui.robotmaskupperbox.value()
