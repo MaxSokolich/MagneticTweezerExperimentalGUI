@@ -493,6 +493,18 @@ QPushButton {
         <height>31</height>
        </rect>
       </property>
+      <property name="minimum">
+       <double>-1.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>0.000000000000000</double>
+      </property>
      </widget>
      <widget class="QDoubleSpinBox" name="I2box">
       <property name="geometry">
@@ -502,6 +514,15 @@ QPushButton {
         <width>71</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="minimum">
+       <double>-1.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
       </property>
      </widget>
      <widget class="QDoubleSpinBox" name="I3box">
@@ -513,6 +534,15 @@ QPushButton {
         <height>31</height>
        </rect>
       </property>
+      <property name="minimum">
+       <double>-1.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
      </widget>
      <widget class="QDoubleSpinBox" name="I4box">
       <property name="geometry">
@@ -522,6 +552,15 @@ QPushButton {
         <width>71</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="minimum">
+       <double>-1.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
       </property>
      </widget>
     </widget>
