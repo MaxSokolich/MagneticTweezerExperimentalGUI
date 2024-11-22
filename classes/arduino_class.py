@@ -48,7 +48,10 @@ class ArduinoHandler:
          Args:
             actions = [Bx, By, Bz, alpha, gamma, freq]
         """
-        
+        I1 = round(I1, 2)
+        I2 = round(I2, 2)
+        I3 = round(I3, 2)
+        I4 = round(I4, 2)
 
         data = [float(I1), float(I2), float(I3), float(I4)]
         if self.conn is None:

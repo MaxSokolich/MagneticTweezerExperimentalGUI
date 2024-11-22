@@ -312,10 +312,10 @@ void loop()
     //mapping from currents to (-1 -》 1s)
 
   
-    set1(I1); // North (-1 < I1 < 1)
-    set2(I2); // East (-1 < I2 < 1)
-    set3(I3); //South (-1 < I3 < 1)
-    set4(I4); //West (-1 < I4 < 1)
+    set1(I2); // North (-1 < I1 < 1)
+    set2(I1); // East (-1 < I2 < 1)
+    set3(I4); //South (-1 < I3 < 1)
+    set4(I3); //West (-1 < I4 < 1)
       
   
     }
