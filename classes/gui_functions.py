@@ -83,7 +83,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         elif "Windows" in platform.platform():
             self.tbprint("Detected OS:  Windows")
-            PORT = "COM4"
+            PORT = "COM3"
         else:
             self.tbprint("undetected operating system")
             PORT = None
@@ -190,7 +190,7 @@ class MainWindow(QtWidgets.QMainWindow):
         """Updates the image_label with a new opencv image"""
 
 
-        print("I1 = {}A,  I2 = {}A,  I3 = {}A,  I4 = {}A".format(self.I1value,self.I2value,self.I3value,self.I4value))
+        #print("I1 = {}A,  I2 = {}A,  I3 = {}A,  I4 = {}A".format(self.I1value,self.I2value,self.I3value,self.I4value))
         #insert algorithm below
         
 
