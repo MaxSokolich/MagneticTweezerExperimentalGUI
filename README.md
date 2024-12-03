@@ -2,6 +2,12 @@
 A software in PyQT5 for experimental with a control theory approach for patterning microrobotics using quadrupole magnetic tweezer theory from another repo I have. 
 
 
+
+
+https://github.com/user-attachments/assets/311c0dd5-a646-4044-ab95-62999de4f37d
+
+
+
 # Instructions for initial installation of system components on Nvidia Jetson AGX Orin:
 1) need to configure nvme ssd using nvidia sdkmanager:  
     - https://developer.nvidia.com/embedded/learn-get-started-jetson-agx-orin-devkit
