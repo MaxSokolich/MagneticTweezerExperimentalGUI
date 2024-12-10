@@ -18,7 +18,7 @@ class Robot:
         self.avg_area = 0  # current average area of the bot in this frame
         self.trajectory = []  # track points from manual pathing
         self.times = []  #time step per frame in seconds
-        self.stuck_status_list = [] #whether or not the robot is stuck or not
+        self.um2pixel = 0 #pixel 2 metrix conversion
         self.crop_length = 40
         
 
@@ -49,8 +49,8 @@ class Robot:
     def add_time(self, time):
         self.times.append(time)
 
-    def add_stuck_status(self,stuck):
-        self.stuck_status_list.append(stuck)
+    def add_um2pixel(self, m2p):
+        self.um2pixel = m2p
     
 
     def as_dict(self) -> dict:

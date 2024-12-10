@@ -100,6 +100,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.currentframe = None
         self.frame_number = 0
         self.robots = []
+        self.actions = []
+
+
+        
         self.videopath = 0
         self.cap = None
         self.tracker = None
@@ -211,19 +215,26 @@ class MainWindow(QtWidgets.QMainWindow):
                                      bot.area_list[-1],
                                      bot.avg_area,
                                      bot.cropped_frame[-1][0],bot.cropped_frame[-1][1],bot.cropped_frame[-1][2],bot.cropped_frame[-1][3],
-                                     bot.stuck_status_list[-1],
+                                     bot.um2pixel,
                                      bot.trajectory,
                                     ]
                 
                 self.robots.append(currentbot_params)
+            self.frame_number = bot.frame_list[-1]
         
+
+        #DEFINE CURRENT MAGNETIC FIELD OUTPUT TO A LIST
+        self.actions = [self.frame_number, self.I1value, self.I2value, self.I3value, self.I4value]
+
+
         #IF SAVE STATUS THEN CONTINOUSLY SAVE THE CURRENT ROBOT PARAMS AND MAGNETIC FIELD PARAMS TO AN EXCEL ROWS
         if self.save_status == True:
+            self.magnetic_field_sheet.append(self.actions)
             for (sheet, bot) in zip(self.robot_params_sheets,self.robots):
                 sheet.append(bot[:-1])
 
 
-        #camrea stuff
+        #camera stuff
         frame = self.handle_zoom(frame)
     
         self.currentframe = frame
@@ -256,13 +267,17 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def start_data_record(self):
         self.output_workbook = openpyxl.Workbook()
-            
+        
+        #create sheet for Field Actions
+        self.magnetic_field_sheet = self.output_workbook.create_sheet(title="Magnetic Field Actions")  
+        self.magnetic_field_sheet.append(["Frame","I1", "I2", "I3", "I4"])            
+
 
         #create sheet for robot data
         self.robot_params_sheets = []
         for i in range(len(self.robots)):
             robot_sheet = self.output_workbook.create_sheet(title= "Robot {}".format(i+1))
-            robot_sheet.append(["Frame","Times","Pos X", "Pos Y", "Vel X", "Vel Y", "Vel Mag", "Blur", "Area", "Avg Area", "Cropped X","Cropped Y","Cropped W","Cropped H","Stuck?","Path X", "Path Y"])
+            robot_sheet.append(["Frame","Time(s)","Pos X (px)", "Pos Y (px)", "Vel X (um/s)", "Vel Y (um/s)", "Vel Mag (um/s)", "Blur", "Area (um^2)", "Avg Area (um^2)", "Cropped X (px)","Cropped Y (px)","Cropped W (px)","Cropped H (px)","um2pixel","Path X (px)", "Path Y (px)"])
             self.robot_params_sheets.append(robot_sheet)
         
 
@@ -298,6 +313,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 pass
 
     
+
     def savedata(self):
         if self.ui.savedatabutton.isChecked():
             self.ui.savedatabutton.setText("Stop")
@@ -340,7 +356,7 @@ class MainWindow(QtWidgets.QMainWindow):
                         robot.add_crop([x_1, y_1, w, h])
                         robot.add_area(0)
                         robot.add_blur(0)
-                        robot.add_stuck_status(0)
+
                         robot.crop_length = self.ui.robotcroplengthbox.value()
                         self.tracker.robot_list.append(robot) #this has to include tracker.robot_list because I need to add it to that class
                         
@@ -460,10 +476,10 @@ class MainWindow(QtWidgets.QMainWindow):
     def setFile(self):
         if self.videopath == 0:
             try:
-                #self.cap  = cv2.VideoCapture(0) 
+                self.cap  = cv2.VideoCapture(0) 
                 
-                self.cap  = EasyPySpin.VideoCapture(0)
-                self.cap.set(cv2.CAP_PROP_AUTO_WB, True)
+                #self.cap  = EasyPySpin.VideoCapture(0)
+                #self.cap.set(cv2.CAP_PROP_AUTO_WB, True)
                 #self.cap.set(cv2.CAP_PROP_FPS, 30)
                 #self.cap.set(cv2.CAP_PROP_FPS, 30)
             except Exception:
