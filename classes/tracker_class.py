@@ -76,7 +76,7 @@ class VideoThread(QThread):
         else:
             self.totalnumframes = 0
            
-        self.pix2metric =  0.28985 * self.objective #.29853 * self.objective#0.28985 * self.objective  
+        self.um2pixel =  3.35 / self.objective 
         
         
 
@@ -146,7 +146,7 @@ class VideoThread(QThread):
                         for contour in contours:
                             if cv2.contourArea(contour) > cv2.contourArea(max_cnt): 
                                 max_cnt = contour
-                        area = cv2.contourArea(max_cnt)* (1/self.pix2metric**2)
+                        area = cv2.contourArea(max_cnt)* (self.um2pixel**2)
                         
                         #find the center of mass from the mask
                         szsorted=np.argsort(sizes)
@@ -166,8 +166,8 @@ class VideoThread(QThread):
 
                         #find velocity:
                         if len(bot.position_list) > self.memory:
-                            vx = (current_pos[0] - bot.position_list[-self.memory][0]) * (self.fps.get_fps()/self.memory) / self.pix2metric
-                            vy = (current_pos[1] - bot.position_list[-self.memory][1]) * (self.fps.get_fps()/self.memory) / self.pix2metric
+                            vx = (current_pos[0] - bot.position_list[-self.memory][0]) * (self.fps.get_fps()/self.memory) * self.um2pixel
+                            vy = (current_pos[1] - bot.position_list[-self.memory][1]) * (self.fps.get_fps()/self.memory) * self.um2pixel
                             magnitude = np.sqrt(vx**2 + vy**2)
 
                             velocity = [vx,vy,magnitude]
@@ -188,14 +188,7 @@ class VideoThread(QThread):
                         bot.add_area(area)
                         bot.add_blur(blur)
                         bot.set_avg_area(np.mean(bot.area_list))
-
-
-                        #stuck condition
-                        if len(bot.position_list) > self.memory and velocity[2] < 20 and self.parent.freq > 0:
-                            stuck_status = 1
-                        else:
-                            stuck_status = 0
-                        bot.add_stuck_status(stuck_status)
+                        bot.add_um2pixel(self.um2pixel)
 
                         #this will toggle between the cropped frame display being the masked version and the original
                         if self.croppedmask_flag == False:
@@ -282,7 +275,7 @@ class VideoThread(QThread):
         cv2.line(
             display_frame, 
             (int(self.width / 8),int(self.height /40)),
-            (int(self.width / 8) + int(100 * (self.pix2metric)),int(self.height / 40)), 
+            (int(self.width / 8) + int(100 / (self.um2pixel)),int(self.height / 40)), 
             (255, 255, 255), 
             thickness=4
         )
@@ -319,7 +312,7 @@ class VideoThread(QThread):
             if ret:       
                 if self.totalnumframes ==0:         
                     self.cap.set(cv2.CAP_PROP_EXPOSURE, self.exposure)
-                    self.pix2metric =  0.28985 * self.objective
+                    self.um2pixel =  3.35 / self.objective
                     
 
                 #step 1 track robot
