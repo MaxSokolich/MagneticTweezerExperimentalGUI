@@ -68,7 +68,7 @@ class MainWindow(QtWidgets.QMainWindow):
     
       
 
-        self.new_dir_path = r"d:\tweezerdata\Tracking Data"
+        self.new_dir_path = 1#r"d:\tweezerdata\Tracking Data"
         if not os.path.exists(self.new_dir_path):
             os.makedirs(self.new_dir_path)
 
