@@ -235,7 +235,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
         #camera stuff
-        field = "I1: {:.2f}, I2: {:.2f}, I3: {:.2f}, I4: {:.2f}".format(self.I1value, self.I2value, self.I3value, self.I4value) 
+        field = "E: {:.2f}, N: {:.2f}, W: {:.2f}, S: {:.2f}".format(self.I1value, self.I2value, self.I3value, self.I4value) 
                 
         cv2.putText(frame, field,
             (int(self.video_width / 1.8),int(self.video_height / 20)),
