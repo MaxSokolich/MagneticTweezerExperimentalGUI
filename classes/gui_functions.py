@@ -235,6 +235,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
         #camera stuff
+        field = "I1: {:.2f}, I2: {:.2f}, I3: {:.2f}, I4: {:.2f}".format(self.I1value, self.I2value, self.I3value, self.I4value) 
+                
+        cv2.putText(frame, field,
+            (int(self.video_width / 1.8),int(self.video_height / 20)),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            fontScale=1.5, 
+            thickness=3,
+            color = (255, 255, 255),
+        )
+        
         frame = self.handle_zoom(frame)
     
         self.currentframe = frame
